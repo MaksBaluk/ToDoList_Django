@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ user.username }} page
+{% endblock %}
+
+{% block content %}
+    <h1>{{ user.username }}</h1>
+    <h2>ToDoList</h2>
+    {% if tasks %}
+        <div class="container">
+            <div class="search-container">
+                <form class="search-form" method="get">
+                    <input type="text" name="search" class="search-input" placeholder="Search by title">
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+            </div>
+            <div class="task-list">
+                {% for t in tasks %}
+                    <div class="task">
+                        <div class="task-info">
+                            <a href="{% url 'task_detail' user_slug=user.slug task_slug=t.slug %}"
+                               class="task-title">{{ t.title }}</a>
+                            <p class="task-time">{{ t.updated_at|date:"H:i d.m.Y" }}</p>
+                        </div>
+                        <p>{{ t.description }}</p>
+                        <p>{{ t.is_complete }}</p>
+                        <p>{{ t.is_private }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>You dont have ToDoList</p>
+    {% endif %}
+{% endblock %}

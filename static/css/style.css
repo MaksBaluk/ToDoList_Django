@@ -1,0 +1,279 @@
+/* Body */
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+}
+
+.container {
+    max-width: 1200px;
+    margin-top: 70px; /* Change this value as needed to adjust the distance from the top */
+    padding: 20px;
+}
+/* Body */
+
+/* Navigation */
+.navbar {
+    background-color: #dee2e6;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0; /* Ensures the navigation spans the full width */
+    z-index: 1000;
+}
+
+.navigation {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ccc;
+}
+
+.navigation li {
+    display: inline-block;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    background-color: #adb5bd;
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+/* Navigation */
+
+
+/* Footer */
+footer {
+    background-color: #212529;
+    color: #fff;
+    padding: 20px 0;
+    margin-top: auto;
+    width: 100%;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-content h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.footer-content a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-content a:hover {
+    color: #ccc;
+}
+/* Footer */
+
+/* Task */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 650px;
+    max-height: 500px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.task {
+    background-color: #dee2e6;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+    width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task p {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.task-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-title {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.task-time {
+    color: #777;
+    font-size: 14px;
+}
+/* Task */
+
+
+/* Login Form */
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-form .form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.login-form .form-error {
+    color: #dc3545;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.login-form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #0056b3;
+}
+/* Login Form */
+
+
+/* Search */
+/* Search */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px; /* Максимальна ширина контейнера для пошуку */
+    margin: 0 auto; /* Центруємо контейнер на сторінці */
+}
+
+.search-form {
+    display: flex;
+}
+
+.search-input {
+    padding: 10px 20px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 20px 0 0 20px;
+    font-size: 16px;
+    width: 200px;
+    height: 45px;
+}
+
+.search-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    font-size: 16px;
+    cursor: pointer;
+    height: 45px; /* Фіксована висота кнопки, щоб була на одному рівні з полем вводу */
+}
+
+/* Search */
+
+
+/* Search Results */
+.task-list {
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+/* Optional: Add a scroll bar if necessary */
+.task-list::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f2f2f2;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+/* Optional: Style for the highlighted search text */
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+/* Additional style for tasks */
+.task {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+    background-color: #dee2e6;
+}
+
+.task-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.task-time {
+    color: #777;
+    font-size: 14px;
+}
+
+.task-description {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* Optional: Show different colors for completed and private tasks */
+.task.is_complete {
+    background-color: #d4edda; /* Greenish background for completed tasks */
+}
+
+.task.is_private {
+    background-color: #f8d7da; /* Pinkish background for private tasks */
+}
+
+
