@@ -13,6 +13,9 @@ from .forms import *
 class HomeTemplate(TemplateView):
     template_name = 'ToDoList/home.html'
 
+    def get_queryset(self):
+        return CustomUser.objects.values('slug')
+
 
 class UserLogin(LoginView):
     template_name = 'ToDoList/login_view.html'

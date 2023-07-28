@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+    <a href="javascript:history.back()" class="btn btn-back">Back</a>
     <div class="container">
     <form class="login-form" method="post">
         {% csrf_token %}

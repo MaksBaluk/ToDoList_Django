@@ -14,13 +14,8 @@ class CustomUser(AbstractUser):
         return self.username
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.slug = slugify(f'{self.username}')
-        else:
-            self.slug = slugify(f'{self.username}-{self.pk}')
+        self.slug = slugify(f'{self.username}')
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('user_detail', kwargs={'user_slug': self.slug})
-
-
