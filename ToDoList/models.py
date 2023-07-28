@@ -28,12 +28,9 @@ class ToDoList(models.Model):
         return f'{self.title} {self.user.username}'
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            # Генеруємо унікальний ідентифікатор uuid4()
+        if not self.slug:  # Перевірка, чи вже є значення в полі slug
             unique_id = str(uuid4())
             self.slug = slugify(f'{self.user.username}-task-{unique_id}')
-        else:
-            self.slug = slugify(f'{self.user.username}-task-{self.pk}')
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView
+from django.views import View
+from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 
 from .forms import CreateTaskForm
 from .models import CustomUser
@@ -41,7 +42,6 @@ class CustomUserDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
             return queryset
 
     def get_object(self, queryset=None):
-        # Use the slug to get the user object
         user_slug = self.kwargs.get('user_slug')
         return get_object_or_404(CustomUser, slug=user_slug)
 
@@ -55,6 +55,10 @@ class ToDoListTaskDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     def test_func(self):
         return True if self.kwargs.get('user_slug') == self.request.user.slug else False
 
+    def get_queryset(self):
+        return ToDoList.objects.values('title', 'updated_at', 'description', 'is_complete', 'is_private', 'slug',
+                                       'user__slug')
+
 
 class CreateTask(LoginRequiredMixin, CreateView):
     model = ToDoList
@@ -65,8 +69,62 @@ class CreateTask(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('user_detail', kwargs={'user_slug': self.kwargs['user_slug']})
 
+    def get_queryset(self):
+        return ToDoList.objects.values('slug', 'user__slug')
+
     def form_valid(self, form):
         user_slug = self.kwargs['user_slug']
         custom_user = CustomUser.objects.get(slug=user_slug)
         form.instance.user = custom_user
         return super().form_valid(form)
+
+
+class UpdateTask(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = ToDoList
+    form_class = CreateTaskForm
+    slug_url_kwarg = 'task_slug'
+    template_name = 'users/create_task.html'
+
+    def get_success_url(self):
+        return reverse_lazy('user_detail', kwargs={'user_slug': self.kwargs['user_slug']})
+
+    def test_func(self):
+        return True if self.kwargs.get('user_slug') == self.request.user.slug else False
+
+    def form_valid(self, form):
+        user_slug = self.kwargs['user_slug']
+        custom_user = CustomUser.objects.get(slug=user_slug)
+        form.instance.user = custom_user
+        return super().form_valid(form)
+
+
+class DeleteTask(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = ToDoList
+    context_object_name = 'task'
+    template_name = 'users/delete_task.html'
+    slug_url_kwarg = 'task_slug'
+
+    def get_success_url(self):
+        return reverse_lazy('user_detail', kwargs={'user_slug': self.kwargs['user_slug']})
+
+    def test_func(self):
+        return True if self.kwargs.get('user_slug') == self.request.user.slug else False
+
+    def get_queryset(self):
+        return ToDoList.objects.select_related('user').filter(user__slug=self.kwargs['user_slug'])
+
+
+class UpdateIsCompleteView(View):
+    def post(self, request, user_slug, task_slug):  # Add user_slug as an argument
+        task = ToDoList.objects.get(user__slug=user_slug, slug=task_slug)  # Query using both user_slug and task_slug
+        task.is_complete = not task.is_complete
+        task.save()
+        return redirect('task_detail', user_slug=user_slug, task_slug=task_slug)
+
+
+class UpdateIsPrivateView(View):
+    def post(self, request, user_slug, task_slug):  # Add user_slug as an argument
+        task = ToDoList.objects.get(user__slug=user_slug, slug=task_slug)  # Query using both user_slug and task_slug
+        task.is_private = not task.is_private
+        task.save()
+        return redirect('task_detail', user_slug=user_slug, task_slug=task_slug)

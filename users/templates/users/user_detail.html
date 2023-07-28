@@ -6,9 +6,14 @@
 
 {% block content %}
     <h1>{{ user.username }}</h1>
-    <h2>ToDoList</h2>
     {% if tasks %}
-        <div class="container">
+        {% if tasks.count == 1 %}
+            <h2>You have {{ tasks.count }} task</h2>
+        {% else %}
+            <h2>You have {{ tasks.count }} tasks</h2>
+        {% endif %}
+        <p><a class="btn btn-addtask" href="{% url 'add_task' user_slug=user.slug %}">Add task</a></p>
+        <div class="container-tasks">
             <div class="search-container">
                 <form class="search-form" method="get">
                     <input type="text" name="search" class="search-input" placeholder="Search by title">
@@ -19,18 +24,35 @@
                 {% for t in tasks %}
                     <div class="task">
                         <div class="task-info">
-                            <a href="{% url 'task_detail' user_slug=user.slug task_slug=t.slug %}"
-                               class="task-title">{{ t.title }}</a>
-                            <p class="task-time">{{ t.updated_at|date:"H:i d.m.Y" }}</p>
+                            <div class="first-layer">
+                                <a href="{% url 'task_detail' user_slug=user.slug task_slug=t.slug %}"
+                                   class="task-title">{{ t.title|truncatechars:40 }}</a>
+                                <p class="task-time">{{ t.updated_at|date:"H:i d.m.Y" }}</p>
+                            </div>
+                            <p class="task-description"><b>Description:</b><br>{{ t.description|truncatechars:50 }}</p>
+                            {% if t.is_complete %}
+                                <p><b>Completed :</b> Yes </p>
+                            {% else %}
+                                <p><b>Completed :</b> No </p>
+                            {% endif %}
+                            {% if t.is_private %}
+                                <p><b>Status :</b> Private</p>
+                            {% else %}
+                                <p><b>Status :</b> Public</p>
+                            {% endif %}
                         </div>
-                        <p>{{ t.description }}</p>
-                        <p>{{ t.is_complete }}</p>
-                        <p>{{ t.is_private }}</p>
+                        <div class="btn-group">
+                            <a class="btn btn-edit"
+                               href="{% url 'update_task' user_slug=user.slug task_slug=t.slug %}">Edit</a>
+                            <a class="btn btn-delete"
+                               href="{% url 'delete_task' user_slug=user.slug task_slug=t.slug %}">Delete</a>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
     {% else %}
         <p>You dont have ToDoList</p>
+        <p><a class="btn btn-addtask" href="{% url 'add_task' user_slug=user.slug %}">Add task</a></p>
     {% endif %}
 {% endblock %}
