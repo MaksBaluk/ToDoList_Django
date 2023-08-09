@@ -188,7 +188,7 @@ footer {
     color: #fff;
     transition: background-color 0.3s ease;
     min-width: 100px;
-    margin: 5px;/* Фіксована ширина кнопки, щоб була в одному розмірі з текстом */
+    margin: 5px; /* Фіксована ширина кнопки, щоб була в одному розмірі з текстом */
 }
 
 .btn-edit {
@@ -215,12 +215,15 @@ footer {
 .btn:hover {
     opacity: 0.8;
 }
-.btn-back{
+
+.btn-back {
     background-color: #212529;
 }
-.btn-back:hover{
+
+.btn-back:hover {
     background-color: #212529
 }
+
 /* Task */
 
 /* Task-Detail */
@@ -231,6 +234,8 @@ footer {
 /* Task-Detail */
 
 /* Login Form */
+
+
 .login-form {
     max-width: 400px;
     margin: 0 auto;
@@ -238,6 +243,15 @@ footer {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-form .form-input {
+    width: fit-content;
+}
+
+.login-form .form-input.description {
+    width: 100%;
+    resize: vertical;
 }
 
 .login-form .form-label {
@@ -366,7 +380,7 @@ footer {
         margin: 5px; /* Зменшити відступи */
         font-size: 14px; /* Зменшити розмір шрифту */
         min-width: 300px;
-        max-width: 300px/* Зменшити мінімальну ширину для ще менших екранів */
+        max-width: 300px /* Зменшити мінімальну ширину для ще менших екранів */
     }
 }
 
