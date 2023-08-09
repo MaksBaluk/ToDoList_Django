@@ -9,6 +9,7 @@
     <a href="javascript:history.back()" class="btn btn-back">Back</a>
     <div class="container">
     <form class="login-form" method="post">
+    <h2>Login</h2>
         {% csrf_token %}
         <div class="form-error">{{ form.non_field_errors }}</div>
         {% for f in form %}

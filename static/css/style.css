@@ -188,7 +188,7 @@ footer {
     color: #fff;
     transition: background-color 0.3s ease;
     min-width: 100px;
-    margin: 5px;/* Фіксована ширина кнопки, щоб була в одному розмірі з текстом */
+    margin: 5px; /* Фіксована ширина кнопки, щоб була в одному розмірі з текстом */
 }
 
 .btn-edit {
@@ -215,12 +215,15 @@ footer {
 .btn:hover {
     opacity: 0.8;
 }
-.btn-back{
+
+.btn-back {
     background-color: #212529;
 }
-.btn-back:hover{
+
+.btn-back:hover {
     background-color: #212529
 }
+
 /* Task */
 
 /* Task-Detail */
@@ -231,6 +234,8 @@ footer {
 /* Task-Detail */
 
 /* Login Form */
+
+
 .login-form {
     max-width: 400px;
     margin: 0 auto;
@@ -238,6 +243,15 @@ footer {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-form .form-input {
+    width: fit-content;
+}
+
+.login-form .form-input.description {
+    width: 100%;
+    resize: vertical;
 }
 
 .login-form .form-label {
@@ -341,12 +355,33 @@ footer {
 }
 
 /* Additional style for tasks */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
 .task {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding: 15px;
     margin: 10px;
     background-color: #dee2e6;
+    min-width: 500px; /* Зменшити мінімальну ширину для менших екранів */
+}
+
+/* Стилі для менших екранів (наприклад, телефонів) */
+@media (max-width: 550px) {
+    .task {
+        padding: 10px; /* Зменшити відступи */
+        margin: 5px; /* Зменшити відступи */
+        font-size: 14px; /* Зменшити розмір шрифту */
+        min-width: 300px;
+        max-width: 300px /* Зменшити мінімальну ширину для ще менших екранів */
+    }
 }
 
 .task-title {
@@ -363,6 +398,7 @@ footer {
     font-size: 16px;
     margin-bottom: 8px;
 }
+
 
 /* Optional: Show different colors for completed and private tasks */
 .task.is_complete {
