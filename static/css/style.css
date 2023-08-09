@@ -341,12 +341,33 @@ footer {
 }
 
 /* Additional style for tasks */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
 .task {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding: 15px;
     margin: 10px;
     background-color: #dee2e6;
+    min-width: 500px; /* Зменшити мінімальну ширину для менших екранів */
+}
+
+/* Стилі для менших екранів (наприклад, телефонів) */
+@media (max-width: 550px) {
+    .task {
+        padding: 10px; /* Зменшити відступи */
+        margin: 5px; /* Зменшити відступи */
+        font-size: 14px; /* Зменшити розмір шрифту */
+        min-width: 300px;
+        max-width: 300px/* Зменшити мінімальну ширину для ще менших екранів */
+    }
 }
 
 .task-title {
@@ -363,6 +384,7 @@ footer {
     font-size: 16px;
     margin-bottom: 8px;
 }
+
 
 /* Optional: Show different colors for completed and private tasks */
 .task.is_complete {

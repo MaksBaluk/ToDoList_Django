@@ -10,4 +10,3 @@ class CreateTaskForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-input'}),
             'description': forms.Textarea(attrs={'class': 'form-input', 'cols': 40, 'rows': 3}),
         }
-

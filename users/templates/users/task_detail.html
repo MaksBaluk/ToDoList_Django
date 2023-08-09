@@ -5,17 +5,19 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{% url 'user_detail' user_slug=task.user__slug %}" class="btn btn-back">Back</a>
+    <a href="{% url 'user_detail' user_slug=user.slug %}" class="btn btn-back">Back</a>
     <div class="task-detail">
         <h3><b>Title:</b></h3>
         <div class="first-layer">
             <h1>{{ task.title }}</h1>
             <p>{{ task.updated_at|date:"H:i d.m.Y" }}</p>
         </div>
-        <h3><b>Description:</b></h3>
-        <h5>{{ task.description }}</h5>
+        {% if task.description %}
+            <h3><b>Description:</b></h3>
+            <h1>{{ task.description }}</h1>
+        {% endif %}
         <div class="btn-group-service">
-            <form method="post" action="{% url 'update_is_complete' user_slug=task.user__slug task_slug=task.slug %}"
+            <form method="post" action="{% url 'update_is_complete'  user_slug=user.slug task_slug=task.slug %}"
                   style="display: inline;">
                 {% csrf_token %}
                 <div class="btn-group-service-btn">
@@ -29,7 +31,7 @@
                     </button>
                 </div>
             </form>
-            <form method="post" action="{% url 'update_is_private' user_slug=task.user__slug task_slug=task.slug %}"
+            <form method="post" action="{% url 'update_is_private'  user_slug=user.slug task_slug=task.slug %}"
                   style="display: inline;">
                 {% csrf_token %}
                 <div class="btn-group-service-btn">
@@ -45,11 +47,11 @@
             </form>
         </div>
         <div class="btn-group-task">
-            <p><a href="{% url 'update_task' user_slug=task.user__slug task_slug=task.slug %}"
+            <p><a href="{% url 'update_task'  user_slug=user.slug task_slug=task.slug %}"
                   class="btn btn-edit">Edit</a>
             </p>
 
-            <form method="post" action="{% url 'delete_task' user_slug=task.user__slug task_slug=task.slug %}"
+            <form method="post" action="{% url 'delete_task'  user_slug=user.slug task_slug=task.slug %}"
                   style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-delete">Delete</button>
