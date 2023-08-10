@@ -24,8 +24,8 @@ SECRET_KEY = 'django-insecure-27#h$)5dxc+_tg!x$v#cy_3f==fs*02!w7%tkkb)(nudltw#%h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','todolistdjango-production.up.railway.app']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'todolistdjango-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://todolistdjango-production.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'whitenoise.runserver_nostatic',
     'users.apps.UsersConfig',
     'ToDoList.apps.TodolistConfig',
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -116,8 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE ='whitenoise.storage.StaticFilesStorage'
 INTERNAL_IPS = [
     '127.0.0.1'
 ]
